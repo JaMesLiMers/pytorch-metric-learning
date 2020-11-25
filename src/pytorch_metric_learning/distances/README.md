@@ -4,7 +4,7 @@ Distance类计算input embeddings之间的成对距离/相似度。
 
 根据 [distance documentation](https://kevinmusgrave.github.io/pytorch-metric-learning/distances/) 里面的介绍, 可以使用这里的distance来替换metric learning中的loss使用的distance衡量方法.
 
-## 例子:
+## 例子 & 使用方法:
 1. TripletMarginLoss 使用 squared L2 distance
 ```
 from pytorch_metric_learning.distances import LpDistance
@@ -31,7 +31,7 @@ loss_func = TripletMarginLoss(margin=0.2, distance=CosineSimilarity())
     - dot product similarity 点乘相似度
     - cosine similarity cos相似度 (和dot的区别在于先进行了正则化)
 
-## 实现:
+## 文档:
 
 - `BaseDistance` \
     所有的distance都继承于 `BaseDistance` 类, 都会调用它的__init__函数.
