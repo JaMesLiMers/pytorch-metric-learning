@@ -32,6 +32,14 @@ class BaseReducer(ModuleWithRecords):
         assert losses.ndim == 0 or len(losses) == 1
         return losses
 
+    # ----------------
+    # 核心方法: 在子方法中进行实现.
+    # element_reduction: 对所有元素进行降维(还不太确定...)
+    # pos_pair_reduction: 对正样本对进行降维(还不太确定...)
+    # neg_pair_reduction: 对负样本对进行降维(还不太确定...)
+    # triplet_reduction: 对三元组进行降维(还不太确定...)
+    # ----------------
+
     def element_reduction(self, losses, loss_indices, embeddings, labels):
         raise NotImplementedError
 
@@ -57,6 +65,12 @@ class BaseReducer(ModuleWithRecords):
         if (not torch.is_tensor(losses)) and (losses == 0):
             return True
         return False
+
+    # ----------------
+    # 工具方法: 用来检测size是指定的和对齐的.
+    # Triplet的dimention是[一类, 一类, 一类]
+    # pair的dimention是[一类, 一类]
+    # ----------------
 
     def assert_sizes_already_reduced(self, losses, loss_indices):
         pass
@@ -84,6 +98,10 @@ class BaseReducer(ModuleWithRecords):
         assert c_f.is_list_or_tuple(loss_indices)
         assert len(loss_indices) == 3
         assert all(len(x) == len(losses) for x in loss_indices)
+
+    # ----------------
+    # 工具方法: 用来设定状态
+    # ----------------
 
     def set_losses_size_stat(self, losses):
         if self.collect_stats:
